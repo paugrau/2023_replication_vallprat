@@ -1,0 +1,19 @@
+
+What mechanisms account for differential party systems in the same country?
+
+Fertile ground*Shock=Mobilization
+
+Is there endogeneity regards who attended Manresa and who will be later affected by the shock?
+
+Mechanisms:
+-
+
+Simon: "I really liked this paper, I think it's very nice".
+
+Methods:
+
+- Log of delegates in Manresa is difficult to interpret. Thresholds or removing outliers would help interpretation.
+
+Would be cool to compare this shock with what happened (or not) in the Basque Country and/or Valencia/Illes.
+
+BOLTON, Patrick; ROLAND, Gerard. The breakup of nations: a political economy analysis. The Quarterly Journal of Economics, 1997, vol. 112, no 4, p. 1057-1090.

@@ -1,0 +1,17 @@
+Replication Data for: Economic Shocks, Mobilization, and Regional Elite Splits
+
+Description of files
+
+# Datasets
+- CPS_ESMRES_Dataset-Cross-Section.dta: Cross-section Constituency Data 
+- CPS_ESMRES_Dataset-Panel.dta: Panel Constituency-Election Data between 1890 and 1923
+- LligaWin.csv: dataset with number of Lliga MPs per constituency (for Maps only)
+
+# Maps (shapefiles)
+-DistCorts1899-1918: Lower Chamber Constituencies borders
+-DistProv1897-1918: Provincial election Constituencies borders
+-muni: municipality borders, corresponding to municipalities in 1892
+
+# Code
+ESMRES_Replication_Files: STATA codes to replicate tables and most figures
+ESMRES_Replication_Maps.R: R codes to replicate figures depicting maps
