@@ -1,3 +1,5 @@
+library(tidyverse)
+
 
 # Vall-Prat data
 
@@ -11,7 +13,6 @@ data_EEH_gis <- readRDS("btmg2018/data_EEH_gis.rds")%>%
   sf::st_as_sf()%>%
   sf::st_transform(sf::st_crs(vall_shp))
 
-
 joint_shp <- vall_shp%>%
   sf::st_join(data_EEH_gis)
 
@@ -21,7 +22,7 @@ joint_intersection <- vall_shp%>%
 
 ### TRY 
 
-datalist = list()
+datalist<- list()
 
 for (i in 1:nrow(vall_shp)) {
   # ... make some data
@@ -34,7 +35,7 @@ for (i in 1:nrow(vall_shp)) {
   datalist[[i]] <- dat # add it to your list
 }
 
-big_data = do.call(rbind, datalist)
+big_data <- do.call(rbind, datalist)
 
 big_data1 <- big_data%>%
   unique()%>%
@@ -50,3 +51,26 @@ big_data_95 <- big_data1%>%
   filter(area_pct_95>0)
 
 big_data%>%ggplot()+geom_sf(aes(fill=ALT_MEDIAN))
+
+
+# Apply weights
+big_data_weighted <- big_data_95%>%
+  select(-area1, -area2, -area_pct, -area_pct_90,-geometry)%>%
+  rename(weight=area_pct_95)%>%
+  sf::st_drop_geometry()%>%
+  select(OBJECTID, DistCorts, commons:weight)%>%
+  group_by(OBJECTID, DistCorts)%>%
+  summarise_at(vars(commons:mf_esc_pub_ele_inc_rel),
+               funs(sum(. * weight)/sum(weight)))%>%
+  rename(Constituency=DistCorts)
+
+write_rds(big_data_weighted, "btmg_weighted.rds")
+
+# Join both datasets
+
+joint <- big_data_weighted%>%
+  left_join(vall_shp)%>%
+  sf::st_as_sf()%>%
+  right_join(CPS_ESMRES_Dataset_Panel%>%filter(ElectionType==1))
+
+write_rds(joint, "joint_data.rds")
